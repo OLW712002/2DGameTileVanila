@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Run();
+        ChangeDirection();
     }
 
     void OnMove(InputValue value)
@@ -27,5 +28,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * playerSpeed, myRb.velocity.y);
         myRb.velocity = playerVelocity;
+    }
+
+    void ChangeDirection()
+    {
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
+        if (playerHasHorizontalSpeed) transform.localScale = new Vector2(Mathf.Sign(myRb.velocity.x), 1f);
     }
 }
