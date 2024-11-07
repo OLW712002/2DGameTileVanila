@@ -3168,6 +3168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57e0473d354edf4a96c3736d50f5ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpeed: 3
 --- !u!114 &860887587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3480,6 +3481,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4298816499812829533, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4298816499812829533, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6340369501129634995, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3490,11 +3499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6340369501129634998, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4068599
+      value: -3.34
       objectReference: {fileID: 0}
     - target: {fileID: 6340369501129634998, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8993533
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6340369501129634998, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_LocalPosition.z
