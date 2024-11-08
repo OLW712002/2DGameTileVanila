@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
 
     [SerializeField] float playerSpeed = 3.0f;
+    [SerializeField] float playerJumpForce = 5.0f;
 
     void Start()
     {
@@ -27,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
+
+    void OnJump(InputValue value)
+    {
+        if (value.isPressed) myRb.velocity = new Vector2(0f, playerJumpForce);
+    }    
 
     void Run()
     {
