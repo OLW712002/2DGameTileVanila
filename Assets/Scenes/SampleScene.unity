@@ -221,9 +221,9 @@ GameObject:
   - component: {fileID: 657826679}
   - component: {fileID: 657826678}
   - component: {fileID: 657826677}
-  m_Layer: 0
-  m_Name: Plarform Tilemap
-  m_TagString: Untagged
+  m_Layer: 3
+  m_Name: Platform Tilemap
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3170,6 +3170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 3
   playerJumpForce: 13
+  forceAmount: 50
+  rayCheckWallDistance: 0.3
 --- !u!114 &860887587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3487,12 +3489,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4298816499812829533, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4298816499812829533, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_GravityScale
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4298816499812829533, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_CollisionDetection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6340369501129634995, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_Name
