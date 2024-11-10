@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     Vector2 moveInput;
+
     Rigidbody2D myRb;
     Animator myAnimator;
     CapsuleCollider2D myCollider;
 
     [SerializeField] float playerSpeed = 3.0f;
     [SerializeField] float playerJumpForce = 5.0f;
+    [SerializeField] float playerClimbSpeed = 5.0f;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Run();
+        Climb();
         AvoidWallStuck();
         ChangeDirection();
     }
@@ -37,6 +40,15 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && myCollider.IsTouchingLayers(LayerMask.GetMask("Platform"))) myRb.velocity = new Vector2(0f, playerJumpForce);
     }    
 
+    void OnClimb(InputValue value)
+    {
+        if (value.isPressed && myCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        {
+            myRb.velocity = new Vector2(0f, playerClimbSpeed);
+            Debug.Log("climb");
+        }
+    }
+
     void Run()
     {
         //Running logical
@@ -46,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         //Running animation
         bool playerHasHorizontalSpeed = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
         myAnimator.SetBool("isRunning", playerHasHorizontalSpeed);
+    }
+
+    void Climb()
+    {
+        if (myCollider.IsTouchingLayers(LayerMask.GetMask("Ladder"))) myRb.velocity = new Vector2(myRb.velocity.x, moveInput.y * playerClimbSpeed);
     }
 
     void ChangeDirection()
