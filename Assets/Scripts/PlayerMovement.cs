@@ -43,15 +43,6 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && myCollider.IsTouchingLayers(LayerMask.GetMask("Platform"))) myRb.velocity = new Vector2(0f, playerJumpForce);
     }    
 
-    void OnClimb(InputValue value)
-    {
-        if (value.isPressed && myCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
-        {
-            myRb.velocity = new Vector2(0f, playerClimbSpeed);
-            Debug.Log("climb");
-        }
-    }
-
     void Run()
     {
         //Running logical
@@ -69,8 +60,19 @@ public class PlayerMovement : MonoBehaviour
         {
             myRb.velocity = new Vector2(myRb.velocity.x, moveInput.y * playerClimbSpeed);
             myRb.gravityScale = 0f;
+            if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
+            {
+                myAnimator.SetBool("isClimbing", true);
+                if (moveInput == Vector2.zero) myAnimator.speed = 0;
+                else myAnimator.speed = 1;
+            }
+            else myAnimator.SetBool("isClimbing", false);
         }
-        else myRb.gravityScale = playerGravityScaleAtStart;
+        else
+        {
+            myRb.gravityScale = playerGravityScaleAtStart;
+            myAnimator.SetBool("isClimbing", false);
+        }
     }
 
     void ChangeDirection()
