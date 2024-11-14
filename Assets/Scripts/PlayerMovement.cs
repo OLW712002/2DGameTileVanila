@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Run();
         Climb();
-        AvoidWallStuck();
         ChangeDirection();
     }
 
@@ -79,15 +78,5 @@ public class PlayerMovement : MonoBehaviour
     {
         bool playerHasHorizontalSpeed = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
         if (playerHasHorizontalSpeed) transform.localScale = new Vector2(Mathf.Sign(myRb.velocity.x), 1f);
-    }
-
-    void AvoidWallStuck()
-    {
-        float forceAmount = 50.0f;
-        float rayCheckWallDistance = myCollider.size.x / 2 + Mathf.Epsilon;
-        Vector2 rayDirection = new Vector2(myRb.velocity.x, 0f).normalized;
-        LayerMask layerMask = LayerMask.GetMask("Platform");
-        Vector2 rayLocation = new Vector2(transform.position.x, transform.position.y - myCollider.size.y / 2);
-        if (Physics2D.Raycast(rayLocation, rayDirection, rayCheckWallDistance, layerMask)) myRb.AddForce(-rayDirection * forceAmount);
     }
 }
