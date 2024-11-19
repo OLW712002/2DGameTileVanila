@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
+    SpriteRenderer spriteRenderer;
 
     float playerGravityScaleAtStart;
     bool isAlive = true;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         playerGravityScaleAtStart = myRb.gravityScale;
     }
 
@@ -89,6 +91,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))) isAlive = false;
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+            myBodyCollider.enabled = false;
+            myAnimator.SetTrigger("Dying");
+            Invoke("RemovePlayer", 0.5f);
+        }
+    }
+
+    void RemovePlayer()
+    {
+        spriteRenderer.color = new Color(0f, 0f, 0f, 0f);
     }
 }
