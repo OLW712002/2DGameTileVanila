@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float playerSpeed = 3.0f;
     [SerializeField] float playerJumpForce = 5.0f;
     [SerializeField] float playerClimbSpeed = 5.0f;
+    [SerializeField] GameObject bullet;
 
     void Start()
     {
@@ -49,7 +50,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) return;
         if (value.isPressed && myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform"))) myRb.velocity = new Vector2(0f, playerJumpForce);
-    }    
+    }
+    
+    void OnFire(InputValue value)
+    {
+        if (!isAlive) return;
+        if (value.isPressed)
+        {
+            GameObject gun = transform.Find("Gun").gameObject;
+            Instantiate(bullet, gun.transform.position, Quaternion.identity);
+        }
+    }
 
     void Run()
     {

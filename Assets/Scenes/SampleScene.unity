@@ -8311,20 +8311,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 860887586, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
-      propertyPath: playerSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340369501129634992, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 753843792412695216, guid: a335f5e8310864f409968acc31c494f8, type: 3}
     - target: {fileID: 6340369501129634995, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340369501129634995, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6340369501129634998, guid: 1edb4635baa84fb48ab631e6615d6e5a, type: 3}
       propertyPath: m_RootOrder
