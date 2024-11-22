@@ -11,13 +11,16 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
-    SpriteRenderer spriteRenderer;
 
     float playerGravityScaleAtStart;
+    float playerJumpForceAtStart;
     bool isAlive = true;
+    bool isInWater = false;
+    int jumpCount = 1;
 
     [SerializeField] float playerSpeed = 3.0f;
     [SerializeField] float playerJumpForce = 5.0f;
+    [SerializeField] float playerJumpForceInWater = 1.0f;
     [SerializeField] float playerClimbSpeed = 5.0f;
     [SerializeField] GameObject bullet;
 
@@ -27,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         playerGravityScaleAtStart = myRb.gravityScale;
+        playerJumpForceAtStart = playerJumpForce;
     }
 
     void Update()
@@ -49,7 +52,11 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         if (!isAlive) return;
-        if (value.isPressed && myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform"))) myRb.velocity = new Vector2(0f, playerJumpForce);
+        if (value.isPressed && jumpCount > 0)
+        {
+            myRb.velocity = new Vector2(0f, playerJumpForce);
+            jumpCount--;
+        }
     }
     
     void OnFire(InputValue value)
@@ -87,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else myAnimator.SetBool("isClimbing", false);
         }
-        else
+        else if (!isInWater)
         {
             myRb.gravityScale = playerGravityScaleAtStart;
             myAnimator.SetBool("isClimbing", false);
@@ -113,7 +120,34 @@ public class PlayerMovement : MonoBehaviour
 
     void RemovePlayer()
     {
-        //spriteRenderer.color = new Color(0f, 0f, 0f, 0f);
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Water")
+        {
+            Debug.Log("enterwater");
+            isInWater = true;
+            jumpCount = 999;
+            myRb.gravityScale = 0.5f;
+            playerJumpForce = playerJumpForceInWater;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Water")
+        {
+            Debug.Log("exitwater");
+            jumpCount = 0;
+            isInWater = false;
+            playerJumpForce = playerJumpForceAtStart;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && jumpCount == 0) { jumpCount = 1; Debug.Log("resetjumpcount"); }
     }
 }
