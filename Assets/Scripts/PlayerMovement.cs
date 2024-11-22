@@ -113,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
     void RemovePlayer()
     {
-        spriteRenderer.color = new Color(0f, 0f, 0f, 0f);
+        //spriteRenderer.color = new Color(0f, 0f, 0f, 0f);
+        Destroy(gameObject);
     }
 }
