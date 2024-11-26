@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Animator myAnimator;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
+    SpriteRenderer sprite;
 
     float playerGravityScaleAtStart;
     float playerJumpForceAtStart;
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
         playerGravityScaleAtStart = myRb.gravityScale;
         playerJumpForceAtStart = playerJumpForce;
     }
@@ -114,13 +117,16 @@ public class PlayerMovement : MonoBehaviour
             isAlive = false;
             myBodyCollider.enabled = false;
             myAnimator.SetTrigger("Dying");
-            Invoke("RemovePlayer", 0.5f);
+            StartCoroutine(ReloadLevel());
         }
     }
 
-    void RemovePlayer()
+    IEnumerator ReloadLevel()
     {
-        Destroy(gameObject);
+        yield return new WaitForSecondsRealtime(0.5f);
+        sprite.color = new Color(1, 1, 1, 0); // Remove sprite display
+        yield return new WaitForSecondsRealtime(1.0f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
