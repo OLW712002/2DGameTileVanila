@@ -118,17 +118,8 @@ public class PlayerMovement : MonoBehaviour
             myBodyCollider.enabled = false;
             myAnimator.SetTrigger("Dying");
             FindObjectOfType<GameSession>().ProcessPlayerDeath();
-            //StartCoroutine(ReloadLevel());
         }
     }
-
-    //IEnumerator ReloadLevel()
-    //{
-    //    yield return new WaitForSecondsRealtime(0.5f);
-    //    sprite.color = new Color(1, 1, 1, 0); // Remove sprite display
-    //    yield return new WaitForSecondsRealtime(1.0f);
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    //}
 
     void OnTriggerEnter2D(Collider2D collision)
     {
