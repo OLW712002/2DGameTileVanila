@@ -18,7 +18,11 @@ public class ExitPortal : MonoBehaviour
     {
         Debug.Log(SceneManager.GetActiveScene().buildIndex + "," + SceneManager.sceneCountInBuildSettings);
         yield return new WaitForSecondsRealtime(delayTime);
-        if (SceneManager.GetActiveScene().buildIndex + 1 == SceneManager.sceneCountInBuildSettings) SceneManager.LoadScene(0);
+        if (SceneManager.GetActiveScene().buildIndex + 1 == SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(0);
+            Debug.Log("Congratulation, your score: " + FindObjectOfType<GameSession>().GetScore());
+        }
         else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

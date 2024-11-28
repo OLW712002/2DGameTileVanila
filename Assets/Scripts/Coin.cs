@@ -9,6 +9,7 @@ public class Coin : MonoBehaviour
         if (collision.tag == "Player")
         {
             Destroy(gameObject);
+            FindObjectOfType<GameSession>().CoinPickup();
         }
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLifes = 3;
+    int score = 0;
 
     void Awake()
     {
@@ -31,5 +32,15 @@ public class GameSession : MonoBehaviour
     {
         playerLifes--;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void CoinPickup()
+    {
+        score++;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }
