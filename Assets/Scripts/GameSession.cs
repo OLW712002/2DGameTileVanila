@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLifes = 3;
+    [SerializeField] TextMeshProUGUI livesText;
+    [SerializeField] TextMeshProUGUI scoreText;
+
     int score = 0;
 
     void Awake()
@@ -14,6 +18,12 @@ public class GameSession : MonoBehaviour
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
         if (numGameSessions > 1) Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        livesText.text = "Lives: " + playerLifes.ToString();
+        scoreText.text = "Score: " + score.ToString();
     }
 
     public void ProcessPlayerDeath()
@@ -31,12 +41,14 @@ public class GameSession : MonoBehaviour
     void TakeLife()
     {
         playerLifes--;
+        livesText.text = "Lives: " + playerLifes.ToString();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void CoinPickup()
     {
         score++;
+        scoreText.text = "Score: " + score.ToString();
     }
 
     public int GetScore()
