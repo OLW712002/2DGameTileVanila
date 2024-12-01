@@ -16,8 +16,8 @@ public class ExitPortal : MonoBehaviour
 
     IEnumerator NextLevel()
     {
-        Debug.Log(SceneManager.GetActiveScene().buildIndex + "," + SceneManager.sceneCountInBuildSettings);
         yield return new WaitForSecondsRealtime(delayTime);
+        FindObjectOfType<ScenePersist>().ResetScenePersist();
         if (SceneManager.GetActiveScene().buildIndex + 1 == SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(0);
